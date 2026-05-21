@@ -2,9 +2,10 @@ rails generate คล้าย nest generate
 
 ```
 nest                         Rails
+nest g module auth           rails g model User
+
 generate controller users    rails g controller users
 
-nest g module auth           rails g model User
 
 nest g service auth          rails g service
 
@@ -17,14 +18,56 @@ nest g resource users       rails g scaffold users
 
 ## CRUD
 
+## ลบ table
+
+terminal: rails g migration DropUsers
+
 ### create model
 
-```
-rails g model User name:string email:string
+## เพิ่ม uuid primary key
 
-## check model
-db/migrate/...
+setting ที่ไฟล์ application.rb เพิ่ม code ดังนี้
+
+```ruby
+config.generators do |g|
+  g.orm :active_record, primary_key_type: :uuid
+end
 ```
+
+terminal: rails g migration EnablePgcryptoExtension
+
+```ruby
+class EnablePgcryptoExtension < ActiveRecord::Migration[8.1]
+
+  def change
+
+    enable_extension 'pgcrypto' unless extension_enabled?('pgcrypto')
+
+  end
+
+end
+
+```
+
+next step
+
+terminal: rails g migration CreateUsers
+
+```ruby
+class CreateUsers < ActiveRecord::Migration[8.1]
+  def change
+    create_table :users, id: :uuid do |t|
+      t.string :name
+      t.string :email
+      t.string :job
+
+      t.timestamps
+    end
+  end
+end
+```
+
+terminal: rails db:migrate
 
 ### migration
 
@@ -33,27 +76,40 @@ rails db:migrate
 ## note มันจะไปสร้าง table ตามที่กำหนดใน model
 ```
 
+ตรวจสอบ ดูใน schema.rb
+
+test : test create user
+terminal: rails console
+
+```ruby
+User.create(name: "John", email: "john@example.com", job: "Developer")
+```
+
 ------------------ service ------------------
 
 ```ruby
 mkdir -p app/services
 touch app/services/user_service.rb
-module Users
-
-  module Services
-
-    class UserService
-
-      def self.call
-
-        Users::User.all
-
-      end
-
-    end
-
+module UserService
+  def self.create_user(name, email, job)
+    User.create(name: name, email: email, job: job)
   end
 
+  def self.get_all_users
+    User.all
+  end
+
+  def self.get_user_by_id(id)
+    User.find(id)
+  end
+
+  def self.update_user(id, name, email, job)
+    User.find(id).update(name: name, email: email, job: job)
+  end
+
+  def self.delete_user(id)
+    User.find(id).destroy
+  end
 end
 ```
 
@@ -108,7 +164,7 @@ get "/users/:id", to: "users#get_user"
 rails g controller api/v1/users
 
 \*\* query_params คือ params ที่ส่งมาผ่าน query string
-user = UserService.get_user(query_params[:id])
+user = UserService.get_user(params[:id])
 
 \*\* params คือ params ที่ส่งมาผ่าน path
 user = UserService.get_user(params[:id])
@@ -146,6 +202,16 @@ user_params = HTTP layer (Controller responsibility)
 dto = Business logic layer (Service/Model responsibility)
 
 ---------------- Dto ----------------
+!! setup auto load path
+
+add to config/application.rb
+
+```ruby
+config.autoload_paths << Rails.root.join("app/domains")
+config.eager_load_paths << Rails.root.join("app/domains")
+```
+
+terminal: mkdir -p app/dtos
 
 ```ruby
 module Users
@@ -160,7 +226,7 @@ module Users
 
       validates :email, presence: true
 
-        def attributes
+      def attributes
 
         {
 
