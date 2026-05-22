@@ -1,29 +1,25 @@
 <div
-  class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
+  class="group rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
 >
   <!-- Image -->
-  <div class="relative aspect-4/5 bg-gray-50 overflow-hidden p-4">
+  <div class="relative bg-white overflow-hidden p-4">
     <img
       [src]="item.image"
       [alt]="item.name"
-      class="w-full h-56 cursor-pointer h-full object-contain transition-transform duration-500 group-hover:scale-105"
+      class="w-full h-56 cursor-pointer object-contain transition-transform duration-500 group-hover:scale-105"
     />
 
     <!-- Badge -->
-    <div class="flex gap-5">
-      @if (item.category !== 'Beauty & Personal Care') {
-        <div
-          class="absolute top-3 text-white text-[10px] font-bold px-2 py-1 rounded-md shadow"
-          [ngClass]="item.rating.count > 200 ? 'bg-red-500' : null"
-        >
-          {{ item.rating.count > 200 ? 'Best Seller' : '' }}
+    <div class="flex gap-2 absolute top-3 left-3">
+      @if (item.rating.count > 200) {
+        <div class="bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-md shadow">
+          Best Seller
         </div>
-      } @else {
-        <div
-          class="absolute top-3 text-white text-[10px] font-bold px-2 py-1 rounded-md shadow"
-          [ngClass]="item.category == 'Beauty & Personal Care' ? 'bg-pink-400' : 'bg-primary'"
-        >
-          {{ item.category == 'Beauty & Personal Care' ? 'Beauty' : '' }}
+      }
+
+      @if (item.category === 'Beauty & Personal Care') {
+        <div class="bg-pink-400 text-white text-[10px] font-bold px-2 py-1 rounded-md shadow">
+          Beauty
         </div>
       }
     </div>
