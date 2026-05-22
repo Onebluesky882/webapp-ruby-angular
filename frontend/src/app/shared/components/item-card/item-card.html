@@ -6,7 +6,7 @@
     <img
       [src]="item.image"
       [alt]="item.name"
-      class="w-full cursor-pointer h-full object-contain transition-transform duration-500 group-hover:scale-105"
+      class="w-full h-56 cursor-pointer h-full object-contain transition-transform duration-500 group-hover:scale-105"
     />
 
     <!-- Badge -->
@@ -33,7 +33,7 @@
   <div class="p-4 flex flex-col">
     <!-- Category -->
     <div class="flex justify-between items-center py-4">
-      <p class="text-[11px] uppercase tracking-wide text-info font-semibold">
+      <p class="text-[11px] uppercase tracking-wide text-info font-semibold truncate">
         {{ item.subCategory }}
       </p>
       <!-- Rating -->
@@ -49,7 +49,7 @@
 
     <!-- Product Name -->
     <div class=" ">
-      <h3 class="text-sm md:text-base font-semibold text-gray-700 line-clamp-2">
+      <h3 class="text-sm md:text-base font-semibold text-gray-700 truncate">
         {{ item.name }}
       </h3>
       <!-- Description -->
