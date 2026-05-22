@@ -1,1 +1,74 @@
-<p>home works! wansing</p>
+<div class="min-h-screen bg-light">
+  <!-- Hero Section (สีฟ้า/น้ำเงิน) -->
+  <header class="bg-linear-to-r from-primary to-info text-white pt-20 pb-24 px-4">
+    <div class="max-w-7xl mx-auto text-center">
+      <h1 class="text-4xl md:text-6xl font-extrabold mb-4 animate-bounce">SHOPDEE</h1>
+      <p class="text-xl md:text-2xl opacity-90 mb-8">
+        ซื้อของออนไลน์ สินค้าไอที และความงามลดราคาพิเศษ
+      </p>
+      <div class="flex justify-center gap-4">
+        <button
+          class="cursor-pointer bg-white text-primary px-8 py-3 rounded-full font-bold hover:bg-opacity-90 transition-all shadow-lg"
+        >
+          ช้อปเลยวันนี้
+        </button>
+        <button
+          class="cursor-pointer border-2 border-white text-white px-8 py-3 rounded-full font-bold hover:bg-white hover:text-primary transition-all"
+        >
+          ดูโปรโมชั่น
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Category Bar (สีขาว) -->
+  <section class="bg-white shadow-sm -mt-10 mx-4 rounded-xl max-w-6xl lg:mx-auto p-6 relative z-10">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+      <div
+        class="p-4 border-r border-gray-100 last:border-0 hover:text-primary cursor-pointer transition-all"
+      >
+        <span class="block text-2xl mb-1">💻</span>
+        <span class="font-semibold">อิเล็กทรอนิกส์</span>
+      </div>
+      <div
+        class="p-4 border-r border-gray-100 last:border-0 hover:text-primary cursor-pointer transition-all"
+      >
+        <span class="block text-2xl mb-1">💄</span>
+        <span class="font-semibold">ความงาม</span>
+      </div>
+      <div
+        class="p-4 border-r border-gray-100 last:border-0 hover:text-primary cursor-pointer transition-all"
+      >
+        <span class="block text-2xl mb-1">👕</span>
+        <span class="font-semibold">แฟชั่น</span>
+      </div>
+      <div
+        class="p-4 border-r border-gray-100 last:border-0 hover:text-primary cursor-pointer transition-all"
+      >
+        <span class="block text-2xl mb-1">🏠</span>
+        <span class="font-semibold">บ้านและครัว</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Grid -->
+  <main class="max-w-7xl mx-auto px-4 py-16">
+    <div class="flex justify-between items-end mb-10">
+      <div>
+        <h2 class="text-3xl font-bold text-dark">สินค้าแนะนำสำหรับคุณ</h2>
+        <div class="h-1 w-20 bg-primary mt-2"></div>
+      </div>
+      <span class="text-primary font-semibold hover:underline cursor-pointer"
+        >ดูทั้งหมด &rarr;</span
+      >
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 py-8">
+      <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 md:gap-6">
+        @for (product of products; track product.id) {
+          <app-item-card [item]="product" [formatPrice]="formatPrice" />
+        }
+      </div>
+    </div>
+  </main>
+</div>

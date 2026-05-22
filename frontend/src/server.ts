@@ -3,7 +3,7 @@ import { AngularAppEngine, createRequestHandler } from '@angular/ssr';
 const angularApp = new AngularAppEngine({
   // It is safe to set allow `localhost`, so that SSR can run in local development,
   // as, in production, Cloudflare will ensure that `localhost` is not the host.
-  allowedHosts: ['localhost', 'https://demo-angular.onebluesky882.workers.dev'],
+  allowedHosts: ['localhost', 'demo-angular.onebluesky882.workers.dev'],
 });
 
 /**
@@ -11,7 +11,6 @@ const angularApp = new AngularAppEngine({
  */
 export const reqHandler = createRequestHandler(async (req) => {
   const res = await angularApp.handle(req);
-
   return res ?? new Response('Page not found.', { status: 404 });
 });
 

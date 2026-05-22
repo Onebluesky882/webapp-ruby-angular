@@ -1,0 +1,78 @@
+<div
+  class="group bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col"
+>
+  <!-- Image -->
+  <div class="relative aspect-4/5 bg-gray-50 overflow-hidden p-4">
+    <img
+      [src]="item.image"
+      [alt]="item.name"
+      class="w-full cursor-pointer h-full object-contain transition-transform duration-500 group-hover:scale-105"
+    />
+
+    <!-- Badge -->
+    <div class="flex gap-5">
+      @if (item.category !== 'Beauty & Personal Care') {
+        <div
+          class="absolute top-3 text-white text-[10px] font-bold px-2 py-1 rounded-md shadow"
+          [ngClass]="item.rating.count > 200 ? 'bg-red-500' : null"
+        >
+          {{ item.rating.count > 200 ? 'Best Seller' : '' }}
+        </div>
+      } @else {
+        <div
+          class="absolute top-3 text-white text-[10px] font-bold px-2 py-1 rounded-md shadow"
+          [ngClass]="item.category == 'Beauty & Personal Care' ? 'bg-pink-400' : 'bg-primary'"
+        >
+          {{ item.category == 'Beauty & Personal Care' ? 'Beauty' : '' }}
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="p-4 flex flex-col">
+    <!-- Category -->
+    <div class="flex justify-between items-center py-4">
+      <p class="text-[11px] uppercase tracking-wide text-info font-semibold">
+        {{ item.subCategory }}
+      </p>
+      <!-- Rating -->
+      <div class="flex items-center justify-end mx-4 gap-1 cursor-pointer">
+        <span class="text-warning text-sm">★</span>
+        <span class="text-xs font-bold">
+          {{ item.rating.stars }}
+        </span>
+
+        <span class="text-xs text-gray-400"> ({{ item.rating.count }}) </span>
+      </div>
+    </div>
+
+    <!-- Product Name -->
+    <div class=" ">
+      <h3 class="text-sm md:text-base font-semibold text-gray-700 line-clamp-2">
+        {{ item.name }}
+      </h3>
+      <!-- Description -->
+      <p class="text-xs text-gray-500 mt-2 line-clamp-2 flex-1 min-h-[50px]">
+        {{ item.description }}
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-4">
+      <!-- Price -->
+      <div class="flex items-center gap-2 mb-3">
+        <span class="text-xl font-extrabold text-primary">
+          {{ formatPrice(item.priceCents) }}
+        </span>
+      </div>
+
+      <!-- Button -->
+      <button
+        class="w-full cursor-pointer bg-primary hover:opacity-90 text-white py-2.5 rounded-xl text-sm font-semibold transition-all active:scale-[0.98]"
+      >
+        เพิ่มลงตะกร้า
+      </button>
+    </div>
+  </div>
+</div>

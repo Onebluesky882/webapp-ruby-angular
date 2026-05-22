@@ -6,6 +6,11 @@
     "analytics": "eee13e94-8822-4642-9f59-a11a0828857d"
   },
   "newProjectRoot": "projects",
+  "schematics": {
+    "@schematics/angular:component": {
+      "standalone": true
+    }
+  },
   "projects": {
     "demo-angular": {
       "projectType": "application",

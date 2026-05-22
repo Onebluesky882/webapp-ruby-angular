@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Product } from '../../features/home/home.type';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class Api {
   constructor(private http: HttpClient) {}
 
   getProducts() {
-    return this.http.get(this.apiUrl);
+    return this.http.get<Product[]>(this.apiUrl);
   }
 
   getUser() {
