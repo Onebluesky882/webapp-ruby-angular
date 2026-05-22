@@ -73,3 +73,5 @@ bundle install
 - Built as static assets (SSR optional depending on config)
 - Served globally via Cloudflare edge network
 - Fast CDN performance and low latency worldwide
+
+website : [https://demo-angular.onebluesky882.workers.dev](https://demo-angular.onebluesky882.workers.dev)
