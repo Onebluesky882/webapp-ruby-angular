@@ -22,3 +22,9 @@ ng g component shared/components/item-card
 ## ทำ feature
 
 ng g component features/home
+
+## props funtion child to parent
+
+ใน Angular “การส่งข้อมูลจาก child → parent” ควรใช้ @Output() + EventEmitter เป็นหลัก
+
+@Output() paySuccess = new EventEmitter<void>();

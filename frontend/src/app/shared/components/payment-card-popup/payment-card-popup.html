@@ -1,0 +1,77 @@
+<section class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+  <div
+    class="w-full max-w-md rounded-3xl bg-white shadow-2xl border border-gray-100 p-6 mx-4 animate-in fade-in zoom-in duration-200"
+  >
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h2 class="text-2xl font-bold text-gray-800">Payment</h2>
+        <p class="text-sm text-gray-400 mt-1">Complete your payment securely</p>
+      </div>
+
+      <button class="cursor-pointer text-gray-400 hover:text-red-500 transition-colors text-xl">
+        ✕
+      </button>
+    </div>
+
+    <!-- Payment Methods -->
+    <div class="space-y-3">
+      <button
+        class="w-full flex items-center justify-between border border-gray-200 hover:border-primary hover:bg-blue-50 transition-all rounded-2xl px-4 py-4 cursor-pointer"
+      >
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">💳</span>
+          <div class="text-left">
+            <p class="font-semibold text-gray-700">Credit Card</p>
+            <p class="text-xs text-gray-400">Visa / Mastercard</p>
+          </div>
+        </div>
+
+        <span class="text-primary font-bold">→</span>
+      </button>
+
+      <button
+        class="w-full flex items-center justify-between border border-gray-200 hover:border-primary hover:bg-blue-50 transition-all rounded-2xl px-4 py-4 cursor-pointer"
+      >
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">📱</span>
+          <div class="text-left">
+            <p class="font-semibold text-gray-700">PromptPay QR</p>
+            <p class="text-xs text-gray-400">Scan to pay instantly</p>
+          </div>
+        </div>
+
+        <span class="text-primary font-bold">→</span>
+      </button>
+
+      <button
+        class="w-full flex items-center justify-between border border-gray-200 hover:border-primary hover:bg-blue-50 transition-all rounded-2xl px-4 py-4 cursor-pointer"
+      >
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">💵</span>
+          <div class="text-left">
+            <p class="font-semibold text-gray-700">Cash on Delivery</p>
+            <p class="text-xs text-gray-400">Pay when receiving items</p>
+          </div>
+        </div>
+
+        <span class="text-primary font-bold">→</span>
+      </button>
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-6 border-t border-gray-100 pt-4 flex items-center justify-between">
+      <div>
+        <p class="text-xs text-gray-400">Total Payment</p>
+        <h3 class="text-2xl font-extrabold text-primary">$120.00</h3>
+      </div>
+
+      <button
+        (click)="paySuccess.emit()"
+        class="cursor-pointer bg-primary hover:opacity-90 active:scale-[0.98] transition-all text-white px-6 py-3 rounded-xl font-semibold shadow-md"
+      >
+        Pay Now
+      </button>
+    </div>
+  </div>
+</section>

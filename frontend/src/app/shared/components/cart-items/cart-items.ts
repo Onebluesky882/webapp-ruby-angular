@@ -25,7 +25,6 @@ export class CartItemComponent {
     if (!this.item) return 0;
 
     return this.item.items.reduce((sum, product) => {
-      console.log(' product.priceCents :', product.priceCents);
       return sum + product.priceCents;
     }, 0);
   }

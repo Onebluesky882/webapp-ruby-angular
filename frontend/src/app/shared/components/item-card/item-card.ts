@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Product } from 'src/type/product.type';
-import { CartItem } from 'src/type/cart-item.type';
 
 @Component({
   selector: 'app-item-card',
