@@ -1,0 +1,70 @@
+<div
+  class="bg-card border border-border rounded-3xl p-5 flex items-center shadow-sm mb-4 relative group"
+>
+  <!-- Product Image -->
+  <div
+    class="w-20 h-20 rounded-xl bg-secondary/50 flex items-center justify-center mr-4 border border-border"
+  >
+    <img [src]="item.image" [alt]="item.name" class="w-14 h-14 rounded-lg object-cover" />
+  </div>
+
+  <!-- Product Details -->
+  <div class="flex-1">
+    <p class="text-xs font-bold text-primary uppercase tracking-widest mb-1">
+      {{ item.subCategory }}
+    </p>
+    <h3 class="text-base font-black text-foreground italic leading-tight mb-2 line-clamp-2">
+      {{ item.name }}
+    </h3>
+
+    <!-- Price & Quantity -->
+    <div class="flex items-center justify-between">
+      <div class="flex items-baseline gap-1">
+        <span class="text-xs font-bold text-primary">฿</span>
+        <span class="text-lg font-black text-primary italic">{{
+          formatPrice(item.priceCents)
+        }}</span>
+      </div>
+
+      <!-- Quantity Selector -->
+      <div class="flex items-center border border-border rounded-lg px-3 py-1.5">
+        <button
+          (click)="updateQuantity(item.quantity - 1)"
+          class="text-muted-foreground hover:text-primary font-bold text-lg mr-3 disabled:opacity-50 disabled:cursor-not-allowed"
+          [disabled]="item.quantity <= 1"
+        >
+          &minus;
+        </button>
+        <span class="text-base font-black mx-2">{{ item.quantity }}</span>
+        <button
+          (click)="updateQuantity(item.quantity + 1)"
+          class="text-primary font-bold text-lg ml-3"
+        >
+          &plus;
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Remove Button (Invisible until hover) -->
+  <button
+    (click)="removeCartItem()"
+    class="absolute top-4 right-4 text-destructive hover:text-red-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+  >
+    <i data-lucide="trash-2" class="w-4 h-4"></i>
+  </button>
+
+  <!-- Payment Button -->
+
+  <button
+    class="absolute bottom-4 right-4 text-primary hover:text-primary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+  >
+    <i data-lucide="credit-card" class="w-4 h-4"></i>
+  </button>
+  <!-- Payment popup -->
+
+  <!-- Payment success popup -->
+  <a href="/profile">
+    <p>ตรวจสอบสถานะการสั่งซื้อ</p>
+  </a>
+</div>

@@ -1,4 +1,4 @@
-2. login user use supabase done!!!!
+1. login user use supabase done!!!!
 
 add item to cart global state and insert table product_cart status = 'cart' item_available = true relation with user_id
 

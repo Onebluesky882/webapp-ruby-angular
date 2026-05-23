@@ -66,7 +66,14 @@
     <div class="max-w-7xl mx-auto px-4 py-8">
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 md:gap-6">
         @for (product of products; track product.id) {
-          <app-item-card [item]="product" [formatPrice]="formatPrice" />
+          <app-item-card
+            [addedItemId]="addedItemId"
+            [session]="session"
+            [handleAddToCart]="handleAddToCart"
+            [addToCart]="addToCart"
+            [item]="product"
+            [formatPrice]="formatPrice"
+          />
         }
       </div>
     </div>

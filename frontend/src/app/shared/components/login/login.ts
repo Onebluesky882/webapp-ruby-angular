@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, Input, input } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '@/core/services/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ import { AuthService } from '@/core/services/auth';
 export class Login {
   private auth = inject(AuthService);
   fb = inject(FormBuilder);
+  private router = inject(Router);
 
   loginForm = this.fb.group({
     email: [''],
@@ -27,7 +29,7 @@ export class Login {
 
   close = false;
 
-  @Input() setClose!: () => void;
+  @Input({ required: true }) setClose!: () => void;
 
   toggleSignUp = false;
 
@@ -71,6 +73,7 @@ export class Login {
       // after register success, close modal
       this.loginForm.reset();
       this.setClose();
+      this.router.navigate(['/']);
     }
     this.setLoading(false);
   }

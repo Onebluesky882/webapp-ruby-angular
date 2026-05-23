@@ -91,7 +91,7 @@
             <img src="/profile.png" alt="profile" class="w-10 h-10 rounded-full object-cover" />
             @if (profileToggle) {
               <div
-                (click)="session.clearUser()"
+                (click)="signOut()"
                 class="absolute top-10 left-1/2 transform -translate-x-1/2 bg-gray-100 p-2 text-white text-xs rounded-xl flex items-center justify-center"
               >
                 <span class="text-red-500">logout</span>
@@ -100,7 +100,11 @@
           </div>
         }
         <!-- Cart Icon -->
-        <button class="relative p-2 text-gray-600 hover:bg-gray-100 rounded-full transition-all">
+
+        <button
+          (click)="navigateToCart()"
+          class="relative p-2 text-gray-600 hover:bg-gray-100 rounded-full transition-all"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-6 w-6"
@@ -115,11 +119,11 @@
               d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
             />
           </svg>
-          @if (isCartCount > 0) {
+          @if (cartItemCount()) {
             <span
               class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-500 rounded-full"
             >
-              {{ isCartCount }}
+              {{ cartItemCount() }}
             </span>
           }
         </button>
@@ -184,19 +188,18 @@
         >
         <hr class="my-2 border-gray-100" />
         <div class="px-3 py-3">
-          <button
-            (click)="toggleLogin()"
-            class="cursor-pointer w-full bg-blue-600 text-white py-3 rounded-lg font-bold"
+          <div
+            class="cursor-pointer flex justify-center w-full bg-blue-600 text-white py-3 rounded-lg font-bold"
           >
             @if (!session.user()) {
-              เข้าสู่ระบบ / สมัครสมาชิก
+              <button class="text-center" (click)="toggleLogin()">เข้าสู่ระบบ / สมัครสมาชิก</button>
             } @else {
               {{ session.user()?.email }}
-              <span class="text-xs cursor-pointer hover:text-red-600" (click)="session.clearUser()"
+              <span class="text-xs cursor-pointer hover:text-red-600" (click)="signOut()"
                 >(ออกจากระบบ)</span
               >
             }
-          </button>
+          </div>
         </div>
       </div>
     </div>

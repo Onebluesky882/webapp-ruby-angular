@@ -65,9 +65,19 @@
 
       <!-- Button -->
       <button
-        class="w-full cursor-pointer bg-primary hover:opacity-90 text-white py-2.5 rounded-xl text-sm font-semibold transition-all active:scale-[0.98]"
+        (click)="handleAddToCart(item)"
+        class="w-full cursor-pointer py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 active:scale-95 hover:scale-[1.02]"
+        [ngClass]="
+          addedItemId === item.id
+            ? 'bg-green-500 text-white shadow-lg shadow-green-200'
+            : 'bg-primary hover:opacity-90 text-white'
+        "
       >
-        เพิ่มลงตะกร้า
+        @if (addedItemId === item.id) {
+          <span class="flex items-center justify-center gap-2"> เพิ่มสินค้าแล้ว </span>
+        } @else {
+          เพิ่มลงตะกร้า
+        }
       </button>
     </div>
   </div>

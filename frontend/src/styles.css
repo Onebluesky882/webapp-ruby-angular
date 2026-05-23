@@ -1,7 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'tailwindcss';
-
+body {
+  min-height: 97vh;
+}
 @theme {
   --color-primary: #007bff;
   --color-secondary: #6c757d;

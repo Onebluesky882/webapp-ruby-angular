@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, effect, inject } from '@angular/core';
 import { SessionService } from '../../core/services/session';
 import { Login } from '../components/login/login';
+import { CartStore } from '@/core/services/cart-store';
+import { AuthService } from '@/core/services/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,10 +12,16 @@ import { Login } from '../components/login/login';
   imports: [CommonModule, Login],
   templateUrl: './header.html',
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
+  auth = inject(AuthService);
   session = inject(SessionService);
-  ngOnInit(): void {
-    console.log('user:', this.session.user());
+  cartStore = inject(CartStore);
+  router = inject(Router);
+
+  constructor() {
+    effect(() => {
+      console.log('user:', this.session.user());
+    });
   }
   isMenuOpen = false;
   isCartCount = 3;
@@ -41,12 +50,21 @@ export class HeaderComponent implements OnInit {
     this.isLoginModalOpen = !this.isLoginModalOpen;
   }
 
-  signOut() {
-    this.session.clearUser();
+  async signOut() {
+    await this.auth.logout();
+    await this.session.clearUser();
     this.goToHome();
   }
 
   closeLogin = () => {
     this.isLoginModalOpen = false;
   };
+
+  // cart item count
+  cartItemCount = computed(() => this.cartStore.totalItems().toLocaleString('en-US'));
+
+  // navigate to cart page
+  navigateToCart() {
+    this.router.navigate(['/cart']);
+  }
 }
