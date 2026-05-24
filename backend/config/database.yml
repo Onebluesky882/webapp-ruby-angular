@@ -5,10 +5,22 @@ default: &default
   url: <%= ENV["DATABASE_URL"] %>
 
 development:
-  <<: *default
+  primary:
+    <<: *default
+  queue:
+    <<: *default
+    migrations_paths: db/queue_migrate
 
 test:
-  <<: *default
+  primary:
+    <<: *default
+  queue:
+    <<: *default
+    migrations_paths: db/queue_migrate
 
 production:
-  <<: *default
+  primary:
+    <<: *default
+  queue:
+    <<: *default
+    migrations_paths: db/queue_migrate
