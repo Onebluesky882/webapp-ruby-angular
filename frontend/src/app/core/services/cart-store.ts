@@ -56,4 +56,9 @@ export class CartStore {
   clearCart() {
     this.items.set([]);
   }
+  paymentPopupVisible = signal(false);
+  openPaymentPopup() {
+    console.log('paymentPopupVisible', this.paymentPopupVisible());
+    this.paymentPopupVisible.set(true);
+  }
 }

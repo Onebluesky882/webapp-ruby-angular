@@ -7,7 +7,7 @@ import { Product } from 'src/type/product.type';
 })
 export class Api {
   apiUrl = 'https://kolzsticks.github.io/Free-Ecommerce-Products-Api/main/products.json';
-  baseUrl = 'https://todo-app-ruby-angular-production.up.railway.app/api';
+  baseUrl = 'https://todo-app-ruby-angular-production.up.railway.app/api/v1';
 
   constructor(private http: HttpClient) {}
 
@@ -15,11 +15,21 @@ export class Api {
     return this.http.get<Product[]>(this.apiUrl);
   }
 
-  getUser() {
-    return this.http.get(`${this.baseUrl}/users`);
+  getOrders() {
+    return this.http.get(`${this.baseUrl}/orders`);
+  }
+  // add item to cart
+  addItemToCart(item: any) {
+    return this.http.post(`${this.baseUrl}/cart/add_item`, item);
   }
 
-  createUser(user: any) {
-    return this.http.post(`${this.baseUrl}/users`, user);
+  // checkout
+  checkout() {
+    return this.http.post(`${this.baseUrl}/cart/checkout`, {});
+  }
+
+  //remove item
+  removeItemFromCart(item: any) {
+    return this.http.post(`${this.baseUrl}/cart/remove_item`, item);
   }
 }

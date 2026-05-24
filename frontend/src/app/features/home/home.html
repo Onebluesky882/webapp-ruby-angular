@@ -96,4 +96,12 @@
       </div>
     }
   </main>
+
+  <!-- Payment popup -->
+  @if (cartStore.paymentPopupVisible()) {
+    <app-payment-card-popup
+      [totalPrice]="cartStore.totalPrice()"
+      (paySuccess)="handlePaySuccess()"
+    ></app-payment-card-popup>
+  }
 </div>

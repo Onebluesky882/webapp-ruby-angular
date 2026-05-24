@@ -7,6 +7,7 @@ import { TotalPriceCard } from '@/shared/components/total-price-card/total-price
 import { PaymentCardPopup } from '@/shared/components/payment-card-popup/payment-card-popup';
 
 @Component({
+  standalone: true,
   imports: [CartItemComponent, TotalPriceCard, PaymentCardPopup],
   templateUrl: './cart.html',
   styleUrl: './cart.css',
@@ -52,14 +53,10 @@ export class Cart {
       return items.filter((i) => i.items[0].id !== itemId);
     });
   }
-  paymentPopupVisible = false;
-  setPaymentPopup = (value: boolean) => {
-    console.log('paymentPopupVisible', this.paymentPopupVisible);
-    this.paymentPopupVisible = value;
-  };
 
-  paySuccessFull = () => {
-    console.log('click ');
+  handlePaySuccess = async () => {
+    await this.cartStore.clearCart();
+    this.cartStore.paymentPopupVisible.set(false);
     this.router.navigate(['/order']);
   };
 }

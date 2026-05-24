@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
+  standalone: true,
   selector: 'app-total-price-card',
   imports: [],
   templateUrl: './total-price-card.html',
@@ -9,5 +10,5 @@ import { Component, Input } from '@angular/core';
 export class TotalPriceCard {
   @Input({ required: true }) totalPrice!: number;
   @Input({ required: true }) paymentPopupVisible = false;
-  @Input({ required: true }) setPaymentPopup!: (value: boolean) => void;
+  @Output() setPaymentPopup = new EventEmitter<boolean>();
 }

@@ -6,14 +6,10 @@
   />
 }
 
-<!-- total price -->
-<app-total-price-card
-  [totalPrice]="totalPrice"
-  [paymentPopupVisible]="paymentPopupVisible"
-  [setPaymentPopup]="setPaymentPopup"
-/>
-
 <!-- Payment popup -->
-@if (paymentPopupVisible) {
-  <app-payment-card-popup (paySuccess)="paySuccessFull()"></app-payment-card-popup>
+@if (cartStore.paymentPopupVisible()) {
+  <app-payment-card-popup
+    [totalPrice]="cartStore.totalPrice()"
+    (paySuccess)="handlePaySuccess()"
+  ></app-payment-card-popup>
 }

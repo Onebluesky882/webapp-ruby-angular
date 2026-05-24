@@ -8,17 +8,18 @@ import { CartItem } from 'src/type/cart-item.type';
 import { SessionService } from '@/core/services/session';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
+import { PaymentCardPopup } from '@/shared/components/payment-card-popup/payment-card-popup';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, ItemCard],
+  imports: [CommonModule, ItemCard, PaymentCardPopup],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class Home implements OnInit {
   api = inject(Api);
-  cart = inject(CartStore);
+  cartStore = inject(CartStore);
   session = inject(SessionService);
   router = inject(Router);
 
@@ -63,7 +64,7 @@ export class Home implements OnInit {
         total: total,
         items: [product],
       };
-      this.cart.addToCart(cartItem);
+      this.cartStore.addToCart(cartItem);
     });
   };
 
@@ -79,5 +80,11 @@ export class Home implements OnInit {
     setTimeout(() => {
       this.addedItemId.set(null); // ✅ signal ใน setTimeout ไม่เป็นปัญหา
     }, 500);
+  };
+
+  handlePaySuccess = async () => {
+    await this.cartStore.clearCart();
+    this.cartStore.paymentPopupVisible.set(false);
+    this.router.navigate(['/order']);
   };
 }
