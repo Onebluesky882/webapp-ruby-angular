@@ -1,0 +1,13 @@
+class Cart < ApplicationRecord
+  attr_reader id: String
+
+  attr_reader user_id: String
+
+  attr_reader qty: Integer
+
+  attr_reader total: Integer
+
+  attr_reader status: "onCart" | "paid" | "cancelled" | "received"
+
+  attr_reader items: Array[untyped]
+end

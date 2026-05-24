@@ -2,34 +2,14 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
+  url: <%= ENV["DATABASE_URL"] %>
+  schema_search_path: public
 
 development:
   <<: *default
-  database: backend_development
-  host: localhost
-  port: 5432
 
 test:
   <<: *default
-  database: backend_test
-  host: localhost
-  port: 5432
 
 production:
-  primary: &primary_production
-    url: <%= ENV["DATABASE_URL"] %>
-
-  cache:
-    <<: *primary_production
-    database: backend_production_cache
-    migrations_paths: db/cache_migrate
-
-  queue:
-    <<: *primary_production
-    database: backend_production_queue
-    migrations_paths: db/queue_migrate
-
-  cable:
-    <<: *primary_production
-    database: backend_production_cable
-    migrations_paths: db/cable_migrate
+  <<: *default

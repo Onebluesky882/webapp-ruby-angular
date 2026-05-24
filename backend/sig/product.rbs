@@ -1,0 +1,17 @@
+class Product < ApplicationRecord
+  attr_reader id: String
+
+  attr_reader image: String
+
+  attr_reader name: String
+
+  attr_reader rating: { stars: Integer, count: Integer }
+
+  attr_reader price_cents: Integer
+
+  attr_reader category: String
+
+  attr_reader sub_category: String
+
+  attr_reader description: String
+end

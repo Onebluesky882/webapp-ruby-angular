@@ -20,6 +20,18 @@ gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
 
+### user 
+gem "dotenv-rails"
+group :development do
+
+  gem "rbs"
+
+  gem "steep"
+
+end
+
+### user
+
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 

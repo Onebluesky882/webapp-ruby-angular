@@ -10,49 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_21_054252) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_24_075134) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
 
-  create_table "food_items", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.integer "calories"
+  create_table "carts", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.jsonb "items"
+    t.integer "qty"
+    t.string "status"
+    t.integer "total"
+    t.datetime "updated_at", null: false
+    t.uuid "user_id"
+  end
+
+  create_table "products", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "category"
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.string "image"
     t.string "name"
-    t.datetime "updated_at", null: false
-    t.uuid "user_id", null: false
-    t.index ["user_id"], name: "index_food_items_on_user_id"
-  end
-
-  create_table "foods", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "name"
+    t.integer "price_cents"
+    t.jsonb "rating"
+    t.integer "stock"
+    t.string "sub_category"
     t.datetime "updated_at", null: false
   end
-
-  create_table "foods_users", id: false, force: :cascade do |t|
-    t.uuid "food_id", null: false
-    t.uuid "user_id", null: false
-    t.index ["food_id"], name: "index_foods_users_on_food_id"
-    t.index ["user_id"], name: "index_foods_users_on_user_id"
-  end
-
-  create_table "profiles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "bio"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.uuid "user_id", null: false
-    t.index ["user_id"], name: "index_profiles_on_user_id"
-  end
-
-  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "email"
-    t.string "job"
-    t.string "name"
-    t.datetime "updated_at", null: false
-  end
-
-  add_foreign_key "food_items", "users"
-  add_foreign_key "profiles", "users"
 end
