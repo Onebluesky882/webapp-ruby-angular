@@ -1,42 +1,106 @@
-<div class="space-y-4">
-  @for (order of orders; track id) {
-    <div class="border rounded-2xl p-4 shadow-sm bg-white flex flex-col gap-3">
-      <!-- Order Header -->
-      <div class="flex justify-between items-center">
-        <h3 class="font-semibold text-gray-700">Order #{{ id }}</h3>
-
-        <span class="text-xs px-2 py-1 rounded-full bg-green-100 text-green-600">
-          {{ order.status }}
-        </span>
+<div
+  class="bg-white rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden mb-6"
+>
+  <!-- Order Header -->
+  <div
+    class="bg-gray-50/50 px-6 py-4 border-b border-gray-100 flex flex-wrap justify-between items-center gap-4"
+  >
+    <div class="flex items-center gap-3">
+      <div class="p-2 bg-primary/10 rounded-xl">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5 text-primary"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M16 11V7a4 4 0 11-8 0v4M5 9h14l1 12H5L5 9z"
+          />
+        </svg>
       </div>
-
-      <!-- Items -->
-      <div class="space-y-2">
-        @for (item of order.items; track item.id) {
-          <div class="flex items-center gap-3">
-            <img [src]="item.image" class="w-10 h-10 object-cover rounded-md" />
-
-            <div class="flex-1">
-              <p class="text-sm font-medium text-gray-700 truncate">
-                {{ item.name }}
-              </p>
-              <p class="text-xs text-gray-400">x{{ order.qty }}</p>
-            </div>
-
-            <div class="text-sm font-semibold text-primary">
-              {{ item.priceCents / 100 }}
-            </div>
-          </div>
-        }
-      </div>
-
-      <!-- Footer -->
-      <div class="flex justify-between items-center border-t pt-3">
-        <span class="text-sm text-gray-500">Total</span>
-        <span class="font-bold text-primary">
-          {{ order.qty }}
-        </span>
+      <div>
+        <p class="text-[10px] font-bold text-secondary uppercase tracking-widest">หมายเลขออเดอร์</p>
       </div>
     </div>
-  }
+
+    <div class="flex items-center gap-4">
+      <div class="text-right hidden sm:block">
+        <p class="text-[10px] font-bold text-secondary uppercase tracking-widest">วันที่สั่งซื้อ</p>
+        <p class="text-xs font-bold text-dark">
+          {{ date }}
+        </p>
+      </div>
+      <!-- Status Badge -->
+      <span
+        class="inline-flex items-center gap-1.5 bg-success/10 text-success px-4 py-1.5 rounded-full text-xs font-black uppercase italic border border-success/20"
+      >
+        <span class="relative flex h-2 w-2">
+          <span
+            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"
+          ></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-success"></span>
+        </span>
+        {{ order[0].status }}
+      </span>
+    </div>
+  </div>
+
+  <!-- Items List -->
+  <div class="p-6">
+    <div *ngFor="let item of order[0].items" class="flex items-center gap-4 mb-4 last:mb-0">
+      <div
+        class="w-16 h-16 rounded-2xl overflow-hidden border border-gray-100 bg-gray-50 flex-shrink-0"
+      >
+        <img [src]="item.image" [alt]="item.name" class="w-full h-full object-cover" />
+      </div>
+      <div class="flex-1 min-w-0">
+        <h4 class="text-sm font-bold text-dark truncate">{{ item.name }}</h4>
+        <p class="text-xs text-secondary font-medium">จำนวน: {{ item.qty }} ชิ้น</p>
+      </div>
+      <div class="text-right">
+        <p class="text-sm font-bold text-dark">฿{{ toBaht(item.price_cents * item.qty) }}</p>
+        <p class="text-[10px] text-gray-400">฿{{ toBaht(item.price_cents) }} / ชิ้น</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Footer (Summary) -->
+  <div class="px-6 py-4 bg-gray-50/30 border-t border-gray-100 flex justify-between items-center">
+    <div>
+      <button class="text-primary text-xs font-bold hover:underline italic flex items-center gap-1">
+        ดูรายละเอียดทั้งหมด
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-3 w-3"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+    <div class="flex items-center gap-6">
+      <div class="text-right">
+        <p class="text-[10px] font-bold text-secondary uppercase tracking-widest leading-none mb-1">
+          ยอดรวมสุทธิ
+        </p>
+        <div class="flex items-baseline gap-1">
+          <span class="text-xs font-bold text-primary italic">฿</span>
+          <span class="text-xl font-black text-primary tracking-tighter">{{
+            toBaht(totalPrice)
+          }}</span>
+        </div>
+      </div>
+      <button
+        class="bg-dark hover:bg-black text-white text-[10px] font-bold uppercase px-4 py-2 rounded-xl transition-all active:scale-95 shadow-sm"
+      >
+        ซื้ออีกครั้ง
+      </button>
+    </div>
+  </div>
 </div>
